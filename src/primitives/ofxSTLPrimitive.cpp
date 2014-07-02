@@ -53,6 +53,17 @@ void ofxSTLPrimitive::init(float x, float y, float z) {
     addCubeFaceVertices(v6,v7,v2,v1);     // next vertex = v1
 }
 
+void ofxSTLPrimitive::save(string filePath, bool asciiFormat) {
+    ofxSTLExporter stlExporter;
+    
+    stlExporter.beginModel("stlOutput");
+    
+    save(stlExporter);
+    
+    stlExporter.useASCIIFormat(asciiFormat);
+    stlExporter.saveModel(filePath);
+}
+
 void ofxSTLPrimitive::save(ofxSTLExporter &stlExporter) {
     vector<ofVec3f>& verts = mesh->getVertices();
 	if( verts.size() %3 != 0 ) {

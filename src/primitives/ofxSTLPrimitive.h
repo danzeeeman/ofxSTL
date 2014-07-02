@@ -33,7 +33,9 @@ public:
     void init(float x, float y, float z);
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
     
+    void save(string filePath, bool asciiFormat = false);
     void save(ofxSTLExporter &stlExporter);
+    
     
 private:
     
