@@ -20,15 +20,6 @@
 
 #include "ofxSTLModel.h"
 
-ofxSTLModel::ofxSTLModel() {
-    
-    
-}
-
-
-ofxSTLModel::~ofxSTLModel() {
-    
-}
 
 //-- expects full pathname
 void ofxSTLModel::load(string filePath) {

@@ -25,9 +25,6 @@
 class ofxSTLModel : public ofxSTLPrimitive {
     
 public:
-    ofxSTLModel();
-    ~ofxSTLModel();
-    
     void load(string filePath);
 
 };

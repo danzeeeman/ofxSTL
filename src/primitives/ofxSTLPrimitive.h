@@ -27,19 +27,17 @@
 class ofxSTLPrimitive : public of3dPrimitive {
     
 public:
-    ofxSTLPrimitive();
-    ~ofxSTLPrimitive();
-    
-    void init(float x, float y, float z);
-    void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
-    
     void save(string filePath, bool asciiFormat = false);
     void save(ofxSTLExporter &stlExporter);
+};
+
+class ofxSTLBoxPrimitive : public ofxSTLPrimitive {
+public:
+    //-- needs to override setWidth or position or something...
+    void init(float _x, float _y, float _z);
     
-    
-private:
-    
-    
+protected:
+    void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };
 
 

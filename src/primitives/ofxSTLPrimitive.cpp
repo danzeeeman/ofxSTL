@@ -20,38 +20,9 @@
 
 #include "ofxSTLPrimitive.h"
 
-ofxSTLPrimitive::ofxSTLPrimitive() {
-    
-    
-}
 
 
-ofxSTLPrimitive::~ofxSTLPrimitive() {
-    
-}
 
-void ofxSTLPrimitive::init(float x, float y, float z) {
-    float s = 4;
-    // pass to ofNode
-    setPosition(x,y,z);
-    
-    ofVec3f v1(x-s/2, y-s/2, z-s/2);
-    ofVec3f v2(x+s/2, y-s/2, z-s/2);
-    ofVec3f v3(x+s/2, y-s/2, z+s/2);
-    ofVec3f v4(x-s/2, y-s/2, z+s/2);
-    
-    ofVec3f v5(x-s/2, y+s/2, z+s/2);
-    ofVec3f v6(x-s/2, y+s/2, z-s/2);
-    ofVec3f v7(x+s/2, y+s/2, z-s/2);
-    ofVec3f v8(x+s/2, y+s/2, z+s/2);
-    
-    addCubeFaceVertices(v1,v2,v3,v4);     // next vertex = v3
-    addCubeFaceVertices(v2,v7,v8,v3);     // next vertex = v8
-    addCubeFaceVertices(v8,v7,v6,v5);     // next vertex = v8
-    addCubeFaceVertices(v8,v5,v4,v3);     // next vertex = v4
-    addCubeFaceVertices(v5,v6,v1,v4);     // next vertex = v1
-    addCubeFaceVertices(v6,v7,v2,v1);     // next vertex = v1
-}
 
 void ofxSTLPrimitive::save(string filePath, bool asciiFormat) {
     ofxSTLExporter stlExporter;
@@ -78,8 +49,36 @@ void ofxSTLPrimitive::save(ofxSTLExporter &stlExporter) {
     }
 }
 
+//-----------------------------
+void ofxSTLBoxPrimitive::init(float _x, float _y, float _z) {
+    float s = 4;
+    float x = _x;
+    float y = _y;
+    float z = _z;
+    
+    // pass to ofNode
+    //setPosition(x,y,z);
+    
+    ofVec3f v1(x-s/2, y-s/2, z-s/2);
+    ofVec3f v2(x+s/2, y-s/2, z-s/2);
+    ofVec3f v3(x+s/2, y-s/2, z+s/2);
+    ofVec3f v4(x-s/2, y-s/2, z+s/2);
+    
+    ofVec3f v5(x-s/2, y+s/2, z+s/2);
+    ofVec3f v6(x-s/2, y+s/2, z-s/2);
+    ofVec3f v7(x+s/2, y+s/2, z-s/2);
+    ofVec3f v8(x+s/2, y+s/2, z+s/2);
+    
+    addCubeFaceVertices(v1,v2,v3,v4);     // next vertex = v3
+    addCubeFaceVertices(v2,v7,v8,v3);     // next vertex = v8
+    addCubeFaceVertices(v8,v7,v6,v5);     // next vertex = v8
+    addCubeFaceVertices(v8,v5,v4,v3);     // next vertex = v4
+    addCubeFaceVertices(v5,v6,v1,v4);     // next vertex = v1
+    addCubeFaceVertices(v6,v7,v2,v1);     // next vertex = v1
+}
+
 //-- last vertex will always be at v3
-void ofxSTLPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4) {
+void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4) {
     mesh->addVertex(v1);
     mesh->addVertex(v2);
     mesh->addVertex(v3);
