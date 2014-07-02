@@ -7,9 +7,24 @@
 
 IN PROGRESS
 
-**ofxSTLMesh**
+**ofxSTLPrimitive**
 Subclasses from ofPrimitive 
 
+TO ADD
+
+**ofxSTLModel**
+
+**ofxSTLBoxPrimitive**
+
+**ofxSTLTetrahedronPrimitive**
+
+**ofxSTLCylinderPrimitive**
+
+**ofxSTLSpherePrimitive**
+
+**ofxSTLConePrimitive**
+
+**ofxSTLIsoSpherePrimitive**
 
 
 by Scott Kildall  
