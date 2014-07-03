@@ -125,4 +125,157 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
     mesh->addVertex(v3);
 }
 
+//-- unimplemented / old draw code
+
+/*
+ if( bWireframe ) {
+ mesh.setMode(OF_PRIMITIVE_LINE_LOOP);
+ 
+ }
+ else {
+ mesh.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
+ ofFill();
+ ofSetColor(225);
+ 
+ // Load into the GPU
+ //        vbo.draw(GL_TRIANGLES, 0, vbo.getNumVertices());
+ 
+ }
+ 
+ 
+ mesh.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
+ ofFill();
+ ofSetColor(225);
+ 
+ 
+ //mesh.drawFaces();
+ mesh.draw();
+ */
+
+//-- unimplemented / old tetrahedron code
+
+/*
+ 
+ // init
+ tetraFacets = new ofxSTLFacet[4];
+
+ 
+ // delete
+
+ if(tetraFacets)
+ delete [] tetraFacets;
+
+ 
+// other
+ void datum::initTetrahedron() {
+ float offset = 50;
+ 
+ float x1 = -s/2 + x;
+ float x2 = s/2 + x;
+ float y1 = -s/2 + y;
+ float y2 = s/2 + y;
+ float z1 = -((s/2) / 1.41421) + z; // square root of 2
+ float z2 = (s/2) / 1.41421 + z;
+ 
+ ofVec3f v1(x1,y,z1);
+ ofVec3f v2(x2,y,z1);
+ ofVec3f v3(x,y1,z2);
+ ofVec3f v4(x,y2,z2);
+ 
+ ofVec3f n(0,0,0);
+ 
+ tetraFacets[0].normal = n;
+ tetraFacets[0].vert1 = v1;
+ tetraFacets[0].vert2 = v2;
+ tetraFacets[0].vert3 = v3;
+ 
+ tetraFacets[1].normal = n;
+ tetraFacets[1].vert1 = v2;
+ tetraFacets[1].vert2 = v4;
+ tetraFacets[1].vert3 = v3;
+ 
+ tetraFacets[2].normal = n;
+ tetraFacets[2].vert1 = v3;
+ tetraFacets[2].vert2 = v4;
+ tetraFacets[2].vert3 = v1;
+ 
+ tetraFacets[3].normal = n;
+ tetraFacets[3].vert1 = v4;
+ tetraFacets[3].vert2 = v2;
+ tetraFacets[3].vert3 = v1;
+ 
+ mesh.addVertex(v1);
+ mesh.addVertex(v2);
+ mesh.addVertex(v3);
+ mesh.addVertex(v1);
+ mesh.addVertex(v4);
+ mesh.addVertex(v2);
+ mesh.addVertex(v3);
+ mesh.addVertex(v4);
+ 
+ }
+ */
+
+/*
+ 
+ void datum::stlOutTetrahedron(ofxSTLExporter &stlExporter) {
+ int numFacets = 4;
+ for(int i=0; i<numFacets; i++)
+ stlExporter.addTriangle(tetraFacets[i].vert1, tetraFacets[i].vert2, tetraFacets[i].vert3, tetraFacets[i].normal);
+ }
+ */
+
+//-- Tetra-out
+/*
+
+void ofApp::initTetrahedron() {
+     float offset = 50;
+     
+     float edgeLength = 200;
+     float x1 = -edgeLength/2;
+     float x2 = edgeLength/2;
+     float y1 = -edgeLength/2;;
+     float y2 = edgeLength/2;
+     float z1 = -((edgeLength/2) / 1.41421); // square root of 2
+     float z2 = (edgeLength/2) / 1.41421;
+     
+     ofVec3f v1(x1,0,z1);
+     ofVec3f v2(x2,0,z1);
+     ofVec3f v3(0,y1,z2);
+     ofVec3f v4(0,y2,z2);
+     ofVec3f n(0,0,0);
+     
+     tetraFacets = new ofxSTLFacet[4];
+     tetraFacets[0].normal = n;
+     tetraFacets[0].vert1 = v1;
+     tetraFacets[0].vert2 = v2;
+     tetraFacets[0].vert3 = v3;
+     
+     tetraFacets[1].normal = n;
+     tetraFacets[1].vert1 = v2;
+     tetraFacets[1].vert2 = v4;
+     tetraFacets[1].vert3 = v3;
+     
+     tetraFacets[2].normal = n;
+     tetraFacets[2].vert1 = v3;
+     tetraFacets[2].vert2 = v4;
+     tetraFacets[2].vert3 = v1;
+     
+     tetraFacets[3].normal = n;
+     tetraFacets[3].vert1 = v4;
+     tetraFacets[3].vert2 = v2;
+     tetraFacets[3].vert3 = v1;
+     
+     tetraMesh.addVertex(v1);
+     tetraMesh.addVertex(v2);
+     tetraMesh.addVertex(v3);
+     tetraMesh.addVertex(v1);
+     tetraMesh.addVertex(v4);
+     tetraMesh.addVertex(v2);
+     tetraMesh.addVertex(v3);
+     tetraMesh.addVertex(v4);
+     */
+
+
+
 
