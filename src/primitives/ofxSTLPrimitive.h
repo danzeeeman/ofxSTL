@@ -27,8 +27,6 @@
 class ofxSTLPrimitive : public of3dPrimitive {
     
 public:
-    
-    
     void save(string filePath, bool asciiFormat = false);
     void save(ofxSTLExporter &stlExporter);
 };
@@ -37,19 +35,19 @@ class ofxSTLBoxPrimitive : public ofxSTLPrimitive {
 public:
     ofxSTLBoxPrimitive();
     
-    void set( float width, float height, float depth );
+    void set( float _width, float _height, float _depth );
     void set( float size ); // all sides the same dimensions //
     
-    void setWidth( float a_width );
-    void setHeight( float a_height );
-    void setDepth( float a_depth );
+    //-- these each to reallocations, so if you need to change *all* dimensions, it's more efficeint to call set()
+    void setWidth( float _width );
+    void setHeight( float _height );
+    void setDepth( float _depth );
     
 protected:
     float width;
     float height;
     float depth;
     
-    void init(float _x, float _y, float _z);
     void setVertices();
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };

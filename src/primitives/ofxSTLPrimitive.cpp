@@ -31,28 +31,28 @@ ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
     setVertices();
 }
 
-void ofxSTLBoxPrimitive::set( float width, float height, float depth ) {
-    
+void ofxSTLBoxPrimitive::set( float _width, float _height, float _depth ) {
+    width = _width;
+    height = _height;
+    depth = _depth;
+    setVertices();
 }
 
 void ofxSTLBoxPrimitive::set( float size ) {
-    width = size;
-    height = size;
-    depth = size;
-    setVertices();
+    set(size,size,size);
     
 }
 
-void ofxSTLBoxPrimitive::setWidth( float a_width ) {
-    
+void ofxSTLBoxPrimitive::setWidth( float _width ) {
+    set(_width,height,depth);
 }
 
-void ofxSTLBoxPrimitive::setHeight( float a_height ) {
-    
+void ofxSTLBoxPrimitive::setHeight( float _height ) {
+    set(width,_height,depth);
 }
 
-void ofxSTLBoxPrimitive::setDepth( float a_depth ) {
-    
+void ofxSTLBoxPrimitive::setDepth( float _depth ) {
+    set(width,height,_depth);
 }
 
 
@@ -82,12 +82,7 @@ void ofxSTLPrimitive::save(ofxSTLExporter &stlExporter) {
 }
 
 //-----------------------------
-void ofxSTLBoxPrimitive::init(float _x, float _y, float _z) {
-    float s = 4;
-    float x = _x;
-    float y = _y;
-    float z = _z;
-}
+
 
 // from stored width, height, depth, will set the vertices
 void ofxSTLBoxPrimitive::setVertices() {
