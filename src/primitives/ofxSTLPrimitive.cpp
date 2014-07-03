@@ -24,6 +24,38 @@
 
 
 
+ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
+    width = 4;
+    height = 4;
+    depth = 4;
+    setVertices();
+}
+
+void ofxSTLBoxPrimitive::set( float width, float height, float depth ) {
+    
+}
+
+void ofxSTLBoxPrimitive::set( float size ) {
+    width = size;
+    height = size;
+    depth = size;
+    setVertices();
+    
+}
+
+void ofxSTLBoxPrimitive::setWidth( float a_width ) {
+    
+}
+
+void ofxSTLBoxPrimitive::setHeight( float a_height ) {
+    
+}
+
+void ofxSTLBoxPrimitive::setDepth( float a_depth ) {
+    
+}
+
+
 void ofxSTLPrimitive::save(string filePath, bool asciiFormat) {
     ofxSTLExporter stlExporter;
     
@@ -55,20 +87,25 @@ void ofxSTLBoxPrimitive::init(float _x, float _y, float _z) {
     float x = _x;
     float y = _y;
     float z = _z;
+}
+
+// from stored width, height, depth, will set the vertices
+void ofxSTLBoxPrimitive::setVertices() {
+    ofVec3f p = getPosition();
     
-    // pass to ofNode
-    //setPosition(x,y,z);
+    ofVec3f v1(p.x-width/2, p.y-height/2, p.z-depth/2);
+    ofVec3f v2(p.x+width/2, p.y-height/2, p.z-depth/2);
+    ofVec3f v3(p.x+width/2, p.y-height/2, p.z+depth/2);
+    ofVec3f v4(p.x-width/2, p.y-height/2, p.z+depth/2);
     
-    ofVec3f v1(x-s/2, y-s/2, z-s/2);
-    ofVec3f v2(x+s/2, y-s/2, z-s/2);
-    ofVec3f v3(x+s/2, y-s/2, z+s/2);
-    ofVec3f v4(x-s/2, y-s/2, z+s/2);
+    ofVec3f v5(p.x-width/2, p.y+height/2, p.z+depth/2);
+    ofVec3f v6(p.x-width/2, p.y+height/2, p.z-depth/2);
+    ofVec3f v7(p.x+width/2, p.y+height/2, p.z-depth/2);
+    ofVec3f v8(p.x+width/2, p.y+height/2, p.z+depth/2);
     
-    ofVec3f v5(x-s/2, y+s/2, z+s/2);
-    ofVec3f v6(x-s/2, y+s/2, z-s/2);
-    ofVec3f v7(x+s/2, y+s/2, z-s/2);
-    ofVec3f v8(x+s/2, y+s/2, z+s/2);
+    mesh->clearVertices();
     
+    // each vertex shows up 3 times
     addCubeFaceVertices(v1,v2,v3,v4);     // next vertex = v3
     addCubeFaceVertices(v2,v7,v8,v3);     // next vertex = v8
     addCubeFaceVertices(v8,v7,v6,v5);     // next vertex = v8
@@ -87,3 +124,5 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
     mesh->addVertex(v1);
     mesh->addVertex(v3);
 }
+
+
