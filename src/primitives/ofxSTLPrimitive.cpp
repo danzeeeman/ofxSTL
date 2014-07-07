@@ -31,9 +31,9 @@ void ofxSTLPrimitive::drawWireframe() {
 
 
 ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
-    width = 8;
-    height = 8;
-    depth = 8;
+    width = 6;
+    height = 6;
+    depth = 6;
     setVertices();
 }
 
