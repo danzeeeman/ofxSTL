@@ -27,13 +27,25 @@
 class ofxSTLPrimitive : public of3dPrimitive {
     
 public:
+    
+    void draw();
+    void drawWireframe();
+
     void save(string filePath, bool asciiFormat = false);
     void save(ofxSTLExporter &stlExporter);
+    
+    
 };
 
 class ofxSTLBoxPrimitive : public ofxSTLPrimitive {
 public:
     ofxSTLBoxPrimitive();
+    
+    // overridden
+    void setPosition(float px, float py, float pz);
+    
+    // recalculates the vertices, should be called after setPostion()...or some other places
+    void setVertices();
     
     void set( float _width, float _height, float _depth );
     void set( float size ); // all sides the same dimensions //
@@ -48,7 +60,7 @@ protected:
     float height;
     float depth;
     
-    void setVertices();
+    
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };
 

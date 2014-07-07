@@ -21,15 +21,39 @@
 #include "ofxSTLPrimitive.h"
 
 
+void ofxSTLPrimitive::draw() {
+    ofGetCurrentRenderer()->draw(*this, OF_MESH_FILL);
+}
 
+void ofxSTLPrimitive::drawWireframe() {
+    ofGetCurrentRenderer()->draw(*this, OF_MESH_WIREFRAME);
+}
 
 
 ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
-    width = 4;
-    height = 4;
-    depth = 4;
+    width = 8;
+    height = 8;
+    depth = 8;
     setVertices();
 }
+
+
+void ofxSTLBoxPrimitive::setPosition(float px, float py, float pz) {
+    ofVec3f oldPos = getPosition();
+    ofNode::setPosition(px,py,pz);
+    ofVec3f newPos = getPosition();
+    
+    ofMesh *m = getMeshPtr();
+    
+    for( int i = 0; i < m->getNumVertices(); i++ ) {
+        ofVec3f v = m->getVertex(i);
+        v.set( newPos.x + (oldPos.x+v.x), newPos.y +(oldPos.y+v.y), newPos.z + (oldPos.z+v.z));
+        
+        m->setVertex(i, v );
+    }
+}
+
+
 
 void ofxSTLBoxPrimitive::set( float _width, float _height, float _depth ) {
     width = _width;
