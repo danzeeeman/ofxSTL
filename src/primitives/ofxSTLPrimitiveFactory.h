@@ -20,7 +20,7 @@
 
 #pragma once
 
-#include "ofxSTLModel.h"
+#include "ofxSTLPrimitive.h"
 
 class  ofxSTLPrimitiveFactory {
     

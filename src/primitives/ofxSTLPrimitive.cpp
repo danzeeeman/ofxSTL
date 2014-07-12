@@ -30,15 +30,7 @@ void ofxSTLPrimitive::drawWireframe() {
 }
 
 
-ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
-    width = 4;
-    height = 4;
-    depth = 4;
-    setVertices();
-}
-
-
-void ofxSTLBoxPrimitive::setPosition(float px, float py, float pz) {
+void ofxSTLPrimitive::setPosition(float px, float py, float pz) {
     ofVec3f oldPos = getPosition();
     ofNode::setPosition(px,py,pz);
     ofVec3f newPos = getPosition();
@@ -52,6 +44,17 @@ void ofxSTLBoxPrimitive::setPosition(float px, float py, float pz) {
         m->setVertex(i, v );
     }
 }
+
+//-----------------------------------
+
+ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
+    width = 4;
+    height = 4;
+    depth = 4;
+    setVertices();
+}
+
+
 
 
 
@@ -142,6 +145,17 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
     mesh->addVertex(v4);
     mesh->addVertex(v1);
     mesh->addVertex(v3);
+}
+
+//---------------------------------
+ofxSTLModelPrimitive::ofxSTLModelPrimitive(ofxSTLImporter &stlImporter) {
+    vector<ofxSTLFacet>& facets = stlImporter.getFacets();
+    int numFacets = facets.size();
+    for(int i=0; i<numFacets; i++){
+        getMeshPtr()->addVertex(facets[i].vert1);
+        getMeshPtr()->addVertex(facets[i].vert2);
+        getMeshPtr()->addVertex(facets[i].vert3);
+    }
 }
 
 //-- unimplemented / old draw code

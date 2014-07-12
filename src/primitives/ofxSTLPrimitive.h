@@ -34,15 +34,14 @@ public:
     void save(string filePath, bool asciiFormat = false);
     void save(ofxSTLExporter &stlExporter);
     
+    // overridden
+    void setPosition(float px, float py, float pz);
     
 };
 
 class ofxSTLBoxPrimitive : public ofxSTLPrimitive {
 public:
     ofxSTLBoxPrimitive();
-    
-    // overridden
-    void setPosition(float px, float py, float pz);
     
     // recalculates the vertices, should be called after setPostion()...or some other places
     void setVertices();
@@ -64,6 +63,7 @@ protected:
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };
 
-
-
-
+class ofxSTLModelPrimitive : public ofxSTLPrimitive {
+public:
+    ofxSTLModelPrimitive(ofxSTLImporter &stlImporter);
+};
