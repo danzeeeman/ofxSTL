@@ -148,8 +148,8 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
 
 ofxSTLCylinderPrimitive::ofxSTLCylinderPrimitive() {
     resolution = DEFAULT_CYLINDER_RESOLUTION;
-    radius = 4;
-    length = 8;
+    radius = 40;
+    length = 80;
     
     setVertices();
 }
@@ -194,35 +194,97 @@ void ofxSTLCylinderPrimitive::setLength( float _length ) {
 //-- (4) add triangle-winding for the rectangular face
 //--        -- store temporary array of vertices for this
 void ofxSTLCylinderPrimitive::setVertices() {
-     mesh->clearVertices();
-    
+    mesh->clearVertices();
     ofVec3f p = getPosition();
     
-    /*
-    ofVec3f v1(p.x-length/2, p.y-radius/2, p.z-radius/2);
-    ofVec3f v2(p.x+length/2, p.y-radius/2, p.z-radius/2);
-    ofVec3f v3(p.x+length/2, p.y-radius/2, p.z+radius/2);
-    ofVec3f v4(p.x-length/2, p.y-radius/2, p.z+radius/2);
+    ofVec3f *capVertices1 = allocateCapVertices(p.x-length/2);
+    ofVec3f *capVertices2 = allocateCapVertices(p.x+length/2);
     
-    ofVec3f v5(p.x-length/2, p.y+radius/2, p.z+radius/2);
-    ofVec3f v6(p.x-length/2, p.y+radius/2, p.z-radius/2);
-    ofVec3f v7(p.x+length/2, p.y+radius/2, p.z-radius/2);
-    ofVec3f v8(p.x+length/2, p.y+radius/2, p.z+radius/2);
-    */
-   
+    // Make the caps, such that the normals face the outside
+    makeCapVertices(capVertices1, p.x-length/2, true);
+    makeCapVertices(capVertices2, p.x+length/2, false);
+    makeLengths(capVertices1,capVertices2);
     
-    // Add specific triangulation code here
-    // each vertex shows up 3 times
-    /*
-    addCubeFaceVertices(v1,v2,v3,v4);     // next vertex = v3
-    addCubeFaceVertices(v2,v7,v8,v3);     // next vertex = v8
-    addCubeFaceVertices(v8,v7,v6,v5);     // next vertex = v8
-    addCubeFaceVertices(v8,v5,v4,v3);     // next vertex = v4
-    addCubeFaceVertices(v5,v6,v1,v4);     // next vertex = v1
-    addCubeFaceVertices(v6,v7,v2,v1);     // next vertex = v1
-    */
+    delete [] capVertices1;
+    delete [] capVertices2;
 }
 
+void ofxSTLCylinderPrimitive::makeCapVertices(ofVec3f *vertices, float xPos, bool standardWinding) {
+    ofVec3f p = getPosition();
+    
+    ofVec3f cv;     // center vertiex
+    cv.x = xPos;
+    cv.y = p.y;
+    cv.z = p.z;
+    
+    // Add triangulated, from center point
+    ofVec3f v1;
+    ofVec3f v2;
+    for( int i = 0; i < resolution; i++ ) {
+        if( i == 0 )
+            v1 = *(vertices+resolution-1);
+        else
+            v1 = *(vertices+i-1);
+        
+        v2 = *(vertices+i);
+        
+        mesh->addVertex(cv);
+        
+        if( standardWinding ) {
+            mesh->addVertex(v1);
+            mesh->addVertex(v2);
+        }
+        else {
+            mesh->addVertex(v2);
+            mesh->addVertex(v1);
+        }
+    }
+}
+
+void ofxSTLCylinderPrimitive::makeLengths(ofVec3f *capVertices1, ofVec3f *capVertices2) {
+    
+    ofVec3f v1;
+    ofVec3f v2;
+    ofVec3f v3;
+    ofVec3f v4;
+    for( int i = 0; i < resolution; i++ ) {
+        if( i == 0 ) {
+            v1 = *(capVertices1+resolution-1);
+            v3 = *(capVertices2+resolution-1);
+        }
+        else {
+            v1 = *(capVertices1+i-1);
+            v3 = *(capVertices2+i-1);
+        }
+        v2 = *(capVertices1+i);
+        v4 = *(capVertices2+i);
+        
+        // first tri
+        mesh->addVertex(v1);
+        mesh->addVertex(v3);
+        mesh->addVertex(v2);
+        
+        // second tri
+        mesh->addVertex(v3);
+        mesh->addVertex(v4);
+        mesh->addVertex(v2);
+    }
+}
+
+//-- stored in
+ofVec3f * ofxSTLCylinderPrimitive::allocateCapVertices(float xPos) {
+    ofVec3f p = getPosition();
+    ofVec3f *vertices = new ofVec3f[resolution];
+    
+    // Load up vertices
+    for( int i = 0; i < resolution; i++ ) {
+        (vertices+i)->z = p.z + (radius * cos( (2*PI/resolution) * i ));
+        (vertices+i)->y = p.y + (radius * sin( (2*PI/resolution) * i ));
+        (vertices+i)->x = xPos;
+    }
+    
+    return vertices;
+}
 
 //---------------------------------
 ofxSTLModelPrimitive::ofxSTLModelPrimitive(ofxSTLImporter &stlImporter) {

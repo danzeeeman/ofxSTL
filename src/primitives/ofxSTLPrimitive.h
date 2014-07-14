@@ -79,6 +79,9 @@ public:
 
 protected:
     void setVertices();
+    void makeCapVertices(ofVec3f *vertices,float xPos, bool standardWinding);
+    void makeLengths(ofVec3f *capVertices1, ofVec3f *capVertices2);
+    ofVec3f *allocateCapVertices(float xPos);
     
     int resolution;
     float radius;
