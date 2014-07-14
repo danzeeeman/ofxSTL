@@ -63,6 +63,28 @@ protected:
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };
 
+#define DEFAULT_CYLINDER_RESOLUTION    (6)
+
+class ofxSTLCylinderPrimitive : public ofxSTLPrimitive  {
+public:
+    ofxSTLCylinderPrimitive();
+    
+    void set( float _radius, float _length, int _resolution );
+    
+     //-- these each to reallocations, so if you need to change *all* dimensions, it's more efficeint to call set()
+    void setResolution(int _resolution);
+    void setDimensions( float _radius, float _length );
+    void setRadius( float _radius );
+    void setLength( float _length );
+
+protected:
+    void setVertices();
+    
+    int resolution;
+    float radius;
+    float length;
+};
+
 class ofxSTLModelPrimitive : public ofxSTLPrimitive {
 public:
     ofxSTLModelPrimitive(ofxSTLImporter &stlImporter);

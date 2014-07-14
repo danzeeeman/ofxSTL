@@ -55,9 +55,6 @@ ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
 }
 
 
-
-
-
 void ofxSTLBoxPrimitive::set( float _width, float _height, float _depth ) {
     width = _width;
     height = _height;
@@ -147,6 +144,86 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
     mesh->addVertex(v3);
 }
 
+//-----------------------------
+
+ofxSTLCylinderPrimitive::ofxSTLCylinderPrimitive() {
+    resolution = DEFAULT_CYLINDER_RESOLUTION;
+    radius = 4;
+    length = 8;
+    
+    setVertices();
+}
+
+void ofxSTLCylinderPrimitive::set( float _radius, float _length, int _resolution ) {
+    resolution = _resolution;
+    radius = _radius;
+    length = _length;
+    setVertices();
+}
+
+
+void ofxSTLCylinderPrimitive::setResolution(int _resolution) {
+    resolution = _resolution;
+    setVertices();
+}
+
+//-- these each to reallocations, so if you need to change *all* dimensions, it's more efficeint to call set()
+void ofxSTLCylinderPrimitive::setDimensions( float _radius, float _length ) {
+    radius = _radius;
+    length = _length;
+    setVertices();
+}
+
+void ofxSTLCylinderPrimitive::setRadius( float _radius ) {
+    radius = _radius;
+    setVertices();
+}
+
+void ofxSTLCylinderPrimitive::setLength( float _length ) {
+    length = _length;
+    setVertices();
+}
+
+// move all vertices here
+//-- (1) do offset calculations with 2D hexagons at -x/2 and x/2, use these formulas here:
+//-- http://www.physicsforums.com/showthread.php?t=317274
+//-- (2) try changing the resolution
+//-- (3) add center point and do STL output
+//--        -- using triangle-winding for 1 face
+//--        -- using triangle-winding for 2 face
+//-- (4) add triangle-winding for the rectangular face
+//--        -- store temporary array of vertices for this
+void ofxSTLCylinderPrimitive::setVertices() {
+     mesh->clearVertices();
+    
+    ofVec3f p = getPosition();
+    
+    /*
+    ofVec3f v1(p.x-length/2, p.y-radius/2, p.z-radius/2);
+    ofVec3f v2(p.x+length/2, p.y-radius/2, p.z-radius/2);
+    ofVec3f v3(p.x+length/2, p.y-radius/2, p.z+radius/2);
+    ofVec3f v4(p.x-length/2, p.y-radius/2, p.z+radius/2);
+    
+    ofVec3f v5(p.x-length/2, p.y+radius/2, p.z+radius/2);
+    ofVec3f v6(p.x-length/2, p.y+radius/2, p.z-radius/2);
+    ofVec3f v7(p.x+length/2, p.y+radius/2, p.z-radius/2);
+    ofVec3f v8(p.x+length/2, p.y+radius/2, p.z+radius/2);
+    */
+   
+    
+    // Add specific triangulation code here
+    // each vertex shows up 3 times
+    /*
+    addCubeFaceVertices(v1,v2,v3,v4);     // next vertex = v3
+    addCubeFaceVertices(v2,v7,v8,v3);     // next vertex = v8
+    addCubeFaceVertices(v8,v7,v6,v5);     // next vertex = v8
+    addCubeFaceVertices(v8,v5,v4,v3);     // next vertex = v4
+    addCubeFaceVertices(v5,v6,v1,v4);     // next vertex = v1
+    addCubeFaceVertices(v6,v7,v2,v1);     // next vertex = v1
+    */
+}
+
+
 //---------------------------------
 ofxSTLModelPrimitive::ofxSTLModelPrimitive(ofxSTLImporter &stlImporter) {
     vector<ofxSTLFacet>& facets = stlImporter.getFacets();
@@ -157,6 +234,8 @@ ofxSTLModelPrimitive::ofxSTLModelPrimitive(ofxSTLImporter &stlImporter) {
         getMeshPtr()->addVertex(facets[i].vert3);
     }
 }
+
+//-----------------------------
 
 //-- unimplemented / old draw code
 
