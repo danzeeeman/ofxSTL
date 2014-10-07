@@ -48,9 +48,9 @@ void ofxSTLPrimitive::setPosition(float px, float py, float pz) {
 //-----------------------------------
 
 ofxSTLBoxPrimitive::ofxSTLBoxPrimitive() {
-    width = 4;
-    height = 4;
-    depth = 4;
+    width = 1;
+    height = 1;
+    depth = 1;
     setVertices();
 }
 
@@ -148,8 +148,8 @@ void ofxSTLBoxPrimitive::addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &
 
 ofxSTLCylinderPrimitive::ofxSTLCylinderPrimitive() {
     resolution = DEFAULT_CYLINDER_RESOLUTION;
-    radius = 40;
-    length = 80;
+    radius = 6;
+    length = 200;
     
     setVertices();
 }

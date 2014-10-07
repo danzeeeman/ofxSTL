@@ -63,7 +63,7 @@ protected:
     void addCubeFaceVertices(ofVec3f &v1, ofVec3f &v2, ofVec3f &v3, ofVec3f &v4);
 };
 
-#define DEFAULT_CYLINDER_RESOLUTION    (6)
+#define DEFAULT_CYLINDER_RESOLUTION    (40)
 
 class ofxSTLCylinderPrimitive : public ofxSTLPrimitive  {
 public:
