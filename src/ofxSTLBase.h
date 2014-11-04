@@ -49,6 +49,23 @@ public:
 		}
 		glEnd();
 	}
+    
+    ofMesh getMesh(){
+        ofMesh mesh;
+        int numFacets = facets.size();
+
+		for(int i=0; i<numFacets; i++){
+			ofxSTLFacet& f = facets[i];
+            mesh.addVertex(ofVec3f(f.vert1.x, f.vert1.y, f.vert1.z));
+            mesh.addVertex(ofVec3f(f.vert2.x, f.vert2.y, f.vert2.z));
+            mesh.addVertex(ofVec3f(f.vert3.x, f.vert3.y, f.vert3.z));
+            mesh.addNormal(ofVec3f((f.normal.x), (f.normal.y), (f.normal.z)));
+            mesh.addNormal(ofVec3f((f.normal.x), (f.normal.y), (f.normal.z)));
+            mesh.addNormal(ofVec3f((f.normal.x), (f.normal.y), (f.normal.z)));
+		}
+        mesh.setupIndicesAuto();
+        return mesh;
+    }
 	
 	void drawNormals(){
 		ofPoint centerPt;
