@@ -92,7 +92,7 @@ void ofxSTLPrimitive::save(string filePath, bool asciiFormat) {
 }
 
 void ofxSTLPrimitive::save(ofxSTLExporter &stlExporter) {
-    vector<ofVec3f>& verts = mesh->getVertices();
+    auto verts = mesh->getVertices();
 	if( verts.size() %3 != 0 ) {
         cout << "ofxSTLPrimitive() error: vertices must be divisible by 3" << "\n";
         return;

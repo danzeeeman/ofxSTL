@@ -169,6 +169,7 @@ public:
 			pos += f.vert3;
 		}
 		pos /= (numFacets*3);
+		return pos;
 	}
 	
 protected:
